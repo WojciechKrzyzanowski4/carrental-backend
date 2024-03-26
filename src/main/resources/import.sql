@@ -22,3 +22,15 @@ INSERT INTO offer_table (price, description, name, car_id) VALUES (1000.00, 'Off
 INSERT INTO offer_table (price, description, name, car_id) VALUES (1500.00, 'Offer 2 description', 'Offer 2', 2);
 
 INSERT INTO offer_table (price, description, name, car_id) VALUES (2000.00, 'Offer 3 description', 'Offer 3', 3);
+
+INSERT INTO offer_table (price, description, name, car_id) VALUES (1000.00, 'Offer 4 description', 'Offer 4', 1);
+
+INSERT INTO offer_table (price, description, name, car_id) VALUES (1500.00, 'Offer 5 description', 'Offer 5', 2);
+
+INSERT INTO offer_table (price, description, name, car_id) VALUES (2000.00, 'Offer 6 description', 'Offer 6', 3);
+
+INSERT INTO offer_table (price, description, name, car_id) VALUES (1000.00, 'Offer 7 description', 'Offer 7', 1);
+
+INSERT INTO offer_table (price, description, name, car_id) VALUES (1500.00, 'Offer 8 description', 'Offer 8', 2);
+
+INSERT INTO offer_table (price, description, name, car_id) VALUES (2000.00, 'Offer 9 description', 'Offer 9', 3);
