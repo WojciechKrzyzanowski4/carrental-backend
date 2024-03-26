@@ -24,10 +24,14 @@ public class CarServiceImpl implements CarService {
     @Override
     public void save(CarDTO carDTO) {
         CarEntity carEntity = carMapper.fromCarDTOToCarEntity(carDTO);
-        BrandEntity brandEntity = brandEntityRepository.findByName(carDTO.brand())
-                .orElse(new BrandEntity(carDTO.brand()));
-        carEntity.setBrand(brandEntity);
-
+        if(brandEntityRepository.findByName(carDTO.brand()).isEmpty()){
+            BrandEntity brandEntity = new BrandEntity(carDTO.brand());
+            brandEntityRepository.save(brandEntity);
+            carEntity.setBrand(brandEntityRepository.findByName(carDTO.brand()).get());
+        }else{
+            BrandEntity brandEntity = brandEntityRepository.findByName(carDTO.brand()).get();
+            carEntity.setBrand(brandEntity);
+        }
         carEntityRepository.save(carEntity);
     }
 
