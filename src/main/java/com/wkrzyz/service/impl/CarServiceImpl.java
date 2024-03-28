@@ -36,6 +36,16 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
+    public void put(CarDTO carDTO) throws NotFoundException {
+        CarEntity carEntity = carMapper.fromCarDTOToCarEntity(carDTO);
+        if(carEntityRepository.findById(carEntity.getId()).isPresent()){
+            save(carDTO);
+        }else{
+            throw new NotFoundException("the object was already removed");
+        }
+    }
+
+    @Override
     public List<CarDTO> findAll() {
         return carEntityRepository.findAll().stream()
                 .map(carMapper::fromCarEntityToCarDTO)
@@ -47,6 +57,11 @@ public class CarServiceImpl implements CarService {
         return carMapper.fromCarEntityToCarDTO(carEntityRepository
                 .findById(id)
                 .orElseThrow(()->new NotFoundException("Car not Found by id = " + id)));
+    }
+
+    @Override
+    public CarEntity findObjById(Long id) {
+       return carEntityRepository.findById(id).get();
     }
 
     @Override

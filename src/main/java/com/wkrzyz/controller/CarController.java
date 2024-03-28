@@ -1,6 +1,7 @@
 package com.wkrzyz.controller;
 
 import com.wkrzyz.dto.CarDTO;
+import com.wkrzyz.exception.NotFoundException;
 import com.wkrzyz.service.CarService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -39,10 +40,22 @@ public class CarController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
+    @PutMapping ("/edit")
+    public ResponseEntity<Void> edit(@Validated @RequestBody CarDTO carDTO){
+        try{
+            carService.put(carDTO);
+        }catch(NotFoundException e){
+            return ResponseEntity.status(HttpStatus.NOT_MODIFIED).build();
+        }
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+
     @DeleteMapping("/{id}")
     //@PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Void> delete(@PathVariable Long id){
         carService.delete(id);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
+
 }

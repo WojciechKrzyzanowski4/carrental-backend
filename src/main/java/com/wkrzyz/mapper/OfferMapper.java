@@ -19,6 +19,7 @@ public interface OfferMapper {
     @Mapping(target="model", source="car.model")
     @Mapping(target="year", source="car.yearOfManufacture")
     @Mapping(target="brand", expression="java(offerEntity.getCar().getBrand().getName())")
+    @Mapping(target="carId", source="car.id")
     OfferDTO fromOfferEntityToOfferDTO(OfferEntity offerEntity);
 
     @Mapping(target="id", source="id")
