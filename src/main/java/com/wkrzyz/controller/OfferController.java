@@ -70,7 +70,6 @@ public class OfferController {
     }
     @PostMapping("/create")
     public ResponseEntity<Void> createOffer(@Validated @RequestBody OfferDTO offerDTO){
-        //hitting the endpoint
         System.out.println("creating an offer");
         try{
             offerService.saveOffer(offerDTO);
@@ -80,4 +79,19 @@ public class OfferController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteOffer(@PathVariable Long id){
+        offerService.delete(id);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @PutMapping ("/edit")
+    public ResponseEntity<Void> edit(@Validated @RequestBody OfferDTO offerDTO){
+        try{
+            offerService.put(offerDTO);
+        }catch(NoSuchElementException e){
+            return ResponseEntity.status(HttpStatus.NOT_MODIFIED).build();
+        }
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
 }

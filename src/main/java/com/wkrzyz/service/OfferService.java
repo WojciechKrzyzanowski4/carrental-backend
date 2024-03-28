@@ -11,6 +11,10 @@ public interface OfferService {
 
     void saveOffer(OfferDTO offerDTO);
 
+    void delete(Long id);
+
+    void put(OfferDTO offerDTO);
+
     List<OfferDTO> findAll();
 
     OfferEntity findById(Long id);

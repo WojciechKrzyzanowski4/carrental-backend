@@ -32,6 +32,25 @@ public class OfferServiceImpl implements OfferService {
         offerEntity.setCar(carEntity);
         offerEntityRepository.save(offerEntity);
     }
+
+    @Override
+    public void delete(Long id) {
+        offerEntityRepository.deleteById(id);
+    }
+
+    @Override
+    public void put(OfferDTO offerDTO) {
+        Long carId = offerDTO.carId();
+        OfferEntity offerEntity = offerMapper.fromOfferDTOToOfferEntity(offerDTO);
+        CarEntity carEntity = carEntityRepository.findById(carId).orElseThrow(NoSuchElementException::new);
+        offerEntity.setCar(carEntity);
+        if(offerEntityRepository.findById(offerEntity.getId()).isPresent()){
+            offerEntityRepository.save(offerEntity);
+        }else{
+            throw new NoSuchElementException("the object was already removed");
+        }
+    }
+
     @Override
     public List<OfferDTO> findAll() {
         return offerEntityRepository.findAll().stream()
