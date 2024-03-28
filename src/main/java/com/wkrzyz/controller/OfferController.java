@@ -32,14 +32,9 @@ import java.util.NoSuchElementException;
 @CrossOrigin
 public class OfferController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
-    @Autowired
-    private OfferService offerService;
-
-    @Autowired
-    private CarService carService;
+    private final OfferService offerService;
 
     @GetMapping
     public List<OfferDTO> getAllOffers(){
