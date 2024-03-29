@@ -34,3 +34,9 @@ INSERT INTO offer_table (price, description, name, car_id) VALUES (1000.00, 'Off
 INSERT INTO offer_table (price, description, name, car_id) VALUES (1500.00, 'Offer 8 description', 'Offer 8', 2);
 
 INSERT INTO offer_table (price, description, name, car_id) VALUES (2000.00, 'Offer 9 description', 'Offer 9', 3);
+
+
+INSERT INTO reservation_table(reservation_date) VALUES ('2024-04-12');
+INSERT INTO reservation_table(reservation_date) VALUES ('2024-04-14');
+INSERT INTO reservation_table(reservation_date) VALUES ('2024-04-17');
+INSERT INTO reservation_table(reservation_date) VALUES ('2024-04-19');
