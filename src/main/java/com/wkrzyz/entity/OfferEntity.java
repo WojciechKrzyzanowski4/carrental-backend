@@ -26,4 +26,5 @@ public class OfferEntity {
 
     @ManyToMany(mappedBy = "likedOffers")
     private List<UserEntity> likedByUsers;
+
 }
