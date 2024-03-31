@@ -3,6 +3,7 @@ package com.wkrzyz.service.impl;
 import com.wkrzyz.dto.OfferDTO;
 import com.wkrzyz.entity.CarEntity;
 import com.wkrzyz.entity.OfferEntity;
+import com.wkrzyz.entity.UserEntity;
 import com.wkrzyz.exception.NotFoundException;
 import com.wkrzyz.mapper.OfferMapper;
 import com.wkrzyz.repository.CarEntityRepository;
@@ -14,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -22,6 +22,7 @@ public class OfferServiceImpl implements OfferService {
 
     private final OfferEntityRepository offerEntityRepository;
     private final CarEntityRepository carEntityRepository;
+    private final UserEntityRepository userEntityRepository;
     private final OfferMapper offerMapper;
 
     @Override
@@ -40,7 +41,20 @@ public class OfferServiceImpl implements OfferService {
 
     @Override
     public void delete(Long id) {
-        offerEntityRepository.deleteById(id);
+        //we need to make sure to delete the reference created by the likes.
+        if(offerEntityRepository.findById(id).isPresent()){
+            OfferEntity offer = offerEntityRepository.findById(id).get();
+            List<UserEntity> userEntities = offer.getLikedByUsers();
+            for(UserEntity u : userEntities){
+                u.getLikedOffers().remove(offer);
+                userEntityRepository.save(u);
+            }
+            offer.getLikedByUsers().clear();
+            offerEntityRepository.deleteById(id);
+        }else{
+            throw new NotFoundException("bad path variable");
+        }
+
     }
 
     @Override

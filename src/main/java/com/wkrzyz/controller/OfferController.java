@@ -1,19 +1,13 @@
 package com.wkrzyz.controller;
 
-import com.wkrzyz.dto.CarDTO;
 import com.wkrzyz.dto.OfferDTO;
-import com.wkrzyz.entity.CarEntity;
 import com.wkrzyz.entity.OfferEntity;
 import com.wkrzyz.entity.UserEntity;
 import com.wkrzyz.exception.NotFoundException;
-import com.wkrzyz.service.CarService;
 import com.wkrzyz.service.OfferService;
 import com.wkrzyz.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -22,7 +16,6 @@ import org.springframework.security.oauth2.client.authentication.OAuth2Authentic
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 /**
@@ -65,7 +58,11 @@ public class OfferController {
      * */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteOffer(@PathVariable Long id){
-        offerService.delete(id);
+        try{
+            offerService.delete(id);
+        }catch (NotFoundException e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
         return ResponseEntity.status(HttpStatus.OK).build();
     }
     /**
@@ -97,7 +94,7 @@ public class OfferController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
     /**
-     * This method get the currently logged-in user and adds the offer of choice to the liked offers
+     * This method gets the currently logged-in user and adds the offer of choice to the liked offers
      * while also adding the user to the users who like this particular offer
      * @param id the id of the offer passed in as a path variable
      */
