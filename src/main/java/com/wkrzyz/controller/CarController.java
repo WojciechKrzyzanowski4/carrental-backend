@@ -4,6 +4,7 @@ import com.wkrzyz.dto.CarDTO;
 import com.wkrzyz.exception.NotFoundException;
 import com.wkrzyz.service.CarService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -66,7 +67,11 @@ public class CarController {
     @DeleteMapping("/{id}")
     //@PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Void> delete(@PathVariable Long id){
-        carService.delete(id);
+        try{
+            carService.delete(id);
+        }catch(DataIntegrityViolationException e){
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        }
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 

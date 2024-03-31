@@ -1,12 +1,15 @@
 package com.wkrzyz.service.impl;
 
 import com.wkrzyz.dto.CarDTO;
+import com.wkrzyz.dto.OfferDTO;
 import com.wkrzyz.entity.BrandEntity;
 import com.wkrzyz.entity.CarEntity;
+import com.wkrzyz.entity.OfferEntity;
 import com.wkrzyz.exception.NotFoundException;
 import com.wkrzyz.mapper.CarMapper;
 import com.wkrzyz.repository.BrandEntityRepository;
 import com.wkrzyz.repository.CarEntityRepository;
+import com.wkrzyz.repository.OfferEntityRepository;
 import com.wkrzyz.service.CarService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,6 +22,7 @@ public class CarServiceImpl implements CarService {
 
     private final CarEntityRepository carEntityRepository;
     private final BrandEntityRepository brandEntityRepository;
+    private final OfferEntityRepository offerEntityRepository;
     private final CarMapper carMapper;
 
     @Override
