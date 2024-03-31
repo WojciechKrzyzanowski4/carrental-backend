@@ -16,6 +16,10 @@ import java.util.stream.Collectors;
  */
 @ControllerAdvice
 public class ControllerAdvisor {
+    /**
+     * This method handles the NotFoundException
+     * @param exception the exception that was caught
+     */
     @ExceptionHandler(value = {NotFoundException.class})
     public ResponseEntity<ErrorDTO> handleNotFoundException(NotFoundException exception){
         return ResponseEntity.badRequest().body(ErrorDTO.builder()
@@ -23,6 +27,10 @@ public class ControllerAdvisor {
                 .time(LocalDateTime.now())
                 .build());
     }
+    /**
+     * This method handles the MethodArgumentNotValidException
+     * @param exception the exception that was caught
+     * */
     @ExceptionHandler(value = {MethodArgumentNotValidException.class})
     public ResponseEntity<ErrorDTO> handleMethodArgumentNotValidException(MethodArgumentNotValidException exception){
         return ResponseEntity.badRequest().body(ErrorDTO.builder()

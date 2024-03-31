@@ -11,6 +11,8 @@ public interface OfferService {
 
     void saveOffer(OfferDTO offerDTO);
 
+    void saveOfferEntity(OfferEntity offerEntity);
+
     void delete(Long id);
 
     void put(OfferDTO offerDTO);

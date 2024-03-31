@@ -34,12 +34,18 @@ public class OfferServiceImpl implements OfferService {
     }
 
     @Override
+    public void saveOfferEntity(OfferEntity offerEntity) {
+        offerEntityRepository.save(offerEntity);
+    }
+
+    @Override
     public void delete(Long id) {
         offerEntityRepository.deleteById(id);
     }
 
     @Override
     public void put(OfferDTO offerDTO) {
+
         Long carId = offerDTO.carId();
         OfferEntity offerEntity = offerMapper.fromOfferDTOToOfferEntity(offerDTO);
         CarEntity carEntity = carEntityRepository.findById(carId).orElseThrow(NoSuchElementException::new);
@@ -49,6 +55,7 @@ public class OfferServiceImpl implements OfferService {
         }else{
             throw new NoSuchElementException("the object was already removed");
         }
+
     }
 
     @Override

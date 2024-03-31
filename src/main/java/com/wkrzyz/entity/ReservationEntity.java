@@ -18,9 +18,6 @@ public class ReservationEntity {
     @Column(name="reservation_date")
     private Date reservationDate;
 
-    //here we need to implement all the relations in the table
-    //for today i just want to make a component that will allow me to select a date
-    //and pass it into sql
 
 
 

@@ -22,7 +22,6 @@ import java.util.NoSuchElementException;
 
 /**
  * REST controller for the user
- *
  */
 @RestController
 @RequiredArgsConstructor
@@ -32,6 +31,9 @@ public class UserController {
 
     private final UserService userService;
 
+    /**
+     * This method return the currently logged-in user as a DTO object
+     * */
     @GetMapping
     public UserDTO findCurrentlyLoggedInUser(){
 
@@ -49,8 +51,9 @@ public class UserController {
         return userService.findUserDTObyEmail(email);
     }
 
-
-
+    /**
+     * This method returns all the offer the currently logged-in user likes
+     * */
     @GetMapping("liked-offers")
     public List<OfferDTO> getLikedOffersForCurrentlyLoggedInUser(){
 
