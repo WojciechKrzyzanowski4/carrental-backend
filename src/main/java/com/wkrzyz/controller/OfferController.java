@@ -4,6 +4,7 @@ import com.wkrzyz.dto.OfferDTO;
 import com.wkrzyz.entity.OfferEntity;
 import com.wkrzyz.entity.UserEntity;
 import com.wkrzyz.exception.NotFoundException;
+import com.wkrzyz.service.OAuth2Service;
 import com.wkrzyz.service.OfferService;
 import com.wkrzyz.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +31,8 @@ public class OfferController {
     private final UserService userService;
 
     private final OfferService offerService;
+
+    private final OAuth2Service oAuth2Service;
 
     /**
      * This method returns all the offer records from the database
@@ -100,25 +103,35 @@ public class OfferController {
      */
     @GetMapping("{id}/like")
     public ResponseEntity<Void> likeOffer(@PathVariable Long id){
-
-        String email;
-        UserEntity currentUser;
-
-        SecurityContext securityContextHolder = SecurityContextHolder.getContext();
-        Authentication authentication = securityContextHolder.getAuthentication();
-        OAuth2AuthenticationToken oAuth2AuthenticationToken = (OAuth2AuthenticationToken) authentication;
-        if(oAuth2AuthenticationToken.getAuthorizedClientRegistrationId().equals("github")){
-            email = oAuth2AuthenticationToken.getPrincipal().getAttributes().get("login").toString();
-        }
-        else{
-            email = "";
+        String email = oAuth2Service.getEmailFromOAuth2Authentication();
+        if(email.isEmpty()){
+            return ResponseEntity.status(HttpStatus.I_AM_A_TEAPOT).build();
         }
         try{
-            System.out.println(offerService.findById(id).getDescription());
-            currentUser = userService.findUserByEmail(email).orElseThrow();
+            UserEntity currentUser = userService.findUserByEmail(email).orElseThrow();
             OfferEntity currentOffer = offerService.findById(id);
             currentUser.getLikedOffers().add(currentOffer);
             currentOffer.getLikedByUsers().add(currentUser);
+            offerService.saveOfferEntity(currentOffer);
+            userService.saveUser(currentUser);
+        }catch(NoSuchElementException e){
+            return ResponseEntity.status(HttpStatus.I_AM_A_TEAPOT).build();
+        }
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @GetMapping("{id}/dislike")
+    public ResponseEntity<Void> dislikeOffer(@PathVariable Long id){
+
+        String email = oAuth2Service.getEmailFromOAuth2Authentication();
+        if(email.isEmpty()){
+            return ResponseEntity.status(HttpStatus.I_AM_A_TEAPOT).build();
+        }
+        try{
+            UserEntity currentUser = userService.findUserByEmail(email).orElseThrow();
+            OfferEntity currentOffer = offerService.findById(id);
+            currentUser.getLikedOffers().remove(currentOffer);
+            currentOffer.getLikedByUsers().remove(currentUser);
             offerService.saveOfferEntity(currentOffer);
             userService.saveUser(currentUser);
         }catch(NoSuchElementException e){
