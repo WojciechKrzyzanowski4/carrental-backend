@@ -25,9 +25,16 @@ public class EmailController {
     /**
      * This works I fixed it, this shit hurt btw do not try to use yahoo for this, it made me heavily consider testing if I could fly
      * */
-    @GetMapping
+    @GetMapping("/test")
     public ResponseEntity<Void> sendEmails(){
         emailService.sendSimpleMessage("spider.wojciech@gmail.com", "Test email", "Hello, World!");
         return ResponseEntity.status(HttpStatus.OK).build();
     }
+
+    @GetMapping
+    public ResponseEntity<Void> sendEmailsToAll(){
+        emailService.sendSimpleMessage("spider.wojciech@gmail.com", "Test email", "Hello, World!");
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
 }
