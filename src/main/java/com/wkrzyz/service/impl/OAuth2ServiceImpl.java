@@ -22,6 +22,9 @@ public class OAuth2ServiceImpl implements OAuth2Service {
             if ("github".equals(oAuth2AuthenticationToken.getAuthorizedClientRegistrationId())) {
                 return oAuth2AuthenticationToken.getPrincipal().getAttributes().get("login").toString();
             }
+            if ("google".equals(oAuth2AuthenticationToken.getAuthorizedClientRegistrationId())) {
+                return oAuth2AuthenticationToken.getPrincipal().getAttributes().get("email").toString();
+            }
         }
         return "";
     }

@@ -16,4 +16,6 @@ public interface UserService {
     void saveUser(UserEntity userEntity);
 
     List<OfferDTO> findTheUserLikedOffers(String email);
+
+    void updateUser(UserDTO userDTO);
 }

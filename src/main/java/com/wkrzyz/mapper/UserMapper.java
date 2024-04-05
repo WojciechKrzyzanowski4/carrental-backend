@@ -12,15 +12,17 @@ import org.mapstruct.ReportingPolicy;
         unmappedTargetPolicy = ReportingPolicy.IGNORE
 )
 public interface UserMapper {
+    @Mapping(target="id", source="id")
     @Mapping(target="name", source="name")
     @Mapping(target="email", source="email")
     @Mapping(target="role", expression = "java(userEntity.getRole().name())")
     @Mapping(target="source", expression = "java(userEntity.getSource().name())")
     UserDTO fromUserEntityToUserDTO(UserEntity userEntity);
 
+    @Mapping(target="id", source="id")
     @Mapping(target="name", source="name")
     @Mapping(target="email", source="email")
-    @Mapping(target="role", ignore = true)
+    @Mapping(target="role", ignore=true)
     @Mapping(target="source", ignore=true)
     UserEntity fromUserDTOTOUserEntity(UserDTO userDTO);
 }

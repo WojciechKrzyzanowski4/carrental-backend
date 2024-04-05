@@ -82,6 +82,48 @@ public class OAuth2LoginSuccessHandler extends SavedRequestAwareAuthenticationSu
                                 oAuth2AuthenticationToken.getAuthorizedClientRegistrationId());
                         SecurityContextHolder.getContext().setAuthentication(securityAuth);
                     });
+
+
+        }else if("google".equals(oAuth2AuthenticationToken.getAuthorizedClientRegistrationId())){
+
+            DefaultOAuth2User principal = (DefaultOAuth2User) authentication.getPrincipal();
+            Map<String, Object> attributes = principal.getAttributes();
+
+            Object nameObj = attributes.getOrDefault("name", "");
+            Object emailObj = attributes.getOrDefault("email", "");
+
+            if(nameObj==null || emailObj==null){
+                throw new RuntimeException("this is not a google account");
+            }
+            final String email = emailObj.toString();
+            final String name = nameObj.toString();
+
+            userService.findUserByEmail(email)
+                    .ifPresentOrElse(user -> {
+                        //user is present in the database
+                        DefaultOAuth2User userNew = new DefaultOAuth2User(
+                                List.of(new SimpleGrantedAuthority(user.getRole().name())),
+                                attributes,"sub");
+                        Authentication securityAuth = new OAuth2AuthenticationToken(userNew, List.of(new SimpleGrantedAuthority(user.getRole().name())),
+                                oAuth2AuthenticationToken.getAuthorizedClientRegistrationId());
+                        SecurityContextHolder.getContext().setAuthentication(securityAuth);
+                    }, () -> {
+                        //user is not present in the database
+                        UserEntity userEntity = new UserEntity();
+                        userEntity.setRole(UserRole.ROLE_USER);
+                        userEntity.setEmail(email);
+                        userEntity.setName(name);
+                        userEntity.setSource(RegistrationSource.GOOGLE);
+                        userService.saveUser(userEntity);
+
+                        DefaultOAuth2User userNew = new DefaultOAuth2User(
+                                List.of(new SimpleGrantedAuthority(userEntity.getRole().name())),
+                                attributes, "sub");
+                        Authentication securityAuth = new OAuth2AuthenticationToken(userNew, List.of(new SimpleGrantedAuthority(userEntity.getRole().name())),
+                                oAuth2AuthenticationToken.getAuthorizedClientRegistrationId());
+                        SecurityContextHolder.getContext().setAuthentication(securityAuth);
+                    });
+
         }
 
         this.setAlwaysUseDefaultTargetUrl(true);

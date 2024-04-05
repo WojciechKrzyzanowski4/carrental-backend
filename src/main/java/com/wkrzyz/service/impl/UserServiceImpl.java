@@ -49,4 +49,22 @@ public class UserServiceImpl implements UserService {
         list = userEntity.getLikedOffers().stream().map(offerMapper::fromOfferEntityToOfferDTO).toList();
         return list;
     }
+
+    @Override
+    public void updateUser(UserDTO userDTO) {
+        if(userEntityRepository.findById(userDTO.id()).isEmpty()){
+            throw new NotFoundException("user was not found in the database");
+        }
+        UserEntity currentUser = userEntityRepository.findById(userDTO.id()).get();
+
+        if(userEntityRepository.findByEmail(userDTO.email()).isPresent()){
+            //the email is already in the database, so it can not be set as the new email
+            currentUser.setName(userDTO.name());
+            userEntityRepository.save(currentUser);
+            return;
+        }
+        currentUser.setName(userDTO.name());
+        currentUser.setEmail(userDTO.email());
+        userEntityRepository.save(currentUser);
+    }
 }
