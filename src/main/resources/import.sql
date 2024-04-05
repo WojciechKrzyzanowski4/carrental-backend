@@ -40,3 +40,6 @@ INSERT INTO reservation_table(reservation_date) VALUES ('2024-04-12');
 INSERT INTO reservation_table(reservation_date) VALUES ('2024-04-14');
 INSERT INTO reservation_table(reservation_date) VALUES ('2024-04-17');
 INSERT INTO reservation_table(reservation_date) VALUES ('2024-04-19');
+
+--do not touch this is very important, if you also want to be an admin place insert yourself into the database
+INSERT INTO user_table(name, email, role, source) VALUES ('WojciechKrzyzanowski4', 'WojciechKrzyzanowski4', 'ROLE_ADMIN', 'GITHUB' )
