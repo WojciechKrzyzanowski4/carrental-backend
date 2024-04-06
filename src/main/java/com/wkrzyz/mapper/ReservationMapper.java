@@ -5,6 +5,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
 import org.mapstruct.ReportingPolicy;
+import org.mapstruct.factory.Mappers;
 
 @Mapper(
         componentModel = MappingConstants.ComponentModel.SPRING,
@@ -14,10 +15,17 @@ public interface ReservationMapper {
 
     @Mapping(target="id", source="id")
     @Mapping(target="reservationDate", source="reservationDate")
-    @Mapping(target="offerName", source="offer.name")
+    @Mapping(target="user", expression="java(userMapper.fromUserEntityToUserDTO(reservationEntity.getUser()))")
+    @Mapping(target="offer", expression="java(offerMapper.fromOfferEntityToOfferDTO(reservationEntity.getOffer()))")
     ReservationDTO fromReservationEntityToReservationDTO(ReservationEntity reservationEntity);
 
     @Mapping(target="id", source="id")
     @Mapping(target="reservationDate",source="reservationDate")
+    @Mapping(target="offer",ignore = true)
+    @Mapping(target="user",ignore = true)
     ReservationEntity fromReservationDTOTOReservationEntity(ReservationDTO reservationDTO);
+
+
+    UserMapper userMapper = Mappers.getMapper(UserMapper.class);
+    OfferMapper offerMapper = Mappers.getMapper(OfferMapper.class);
 }

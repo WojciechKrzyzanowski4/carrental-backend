@@ -6,7 +6,9 @@ import java.sql.Date;
 
 public record ReservationDTO(Long id,
                              Date reservationDate,
-                             String offerName
+                             UserDTO user,
+
+                             OfferDTO offer
 
 
 
