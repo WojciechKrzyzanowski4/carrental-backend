@@ -36,7 +36,7 @@ public class UserEntity {
     )
     private Set<OfferEntity> likedOffers;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.PERSIST)
     private List<ReservationEntity> reservations;
 
 }

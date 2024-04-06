@@ -38,4 +38,8 @@ public class ReservationServiceImpl implements ReservationService {
         reservationEntityRepository.save(reservationEntity);
         return reservationEntity;
     }
+    @Override
+    public void saveReservation(ReservationEntity reservationEntity) {
+        reservationEntityRepository.save(reservationEntity);
+    }
 }

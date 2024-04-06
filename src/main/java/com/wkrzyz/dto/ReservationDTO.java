@@ -5,7 +5,10 @@ import jakarta.validation.constraints.NotEmpty;
 import java.sql.Date;
 
 public record ReservationDTO(Long id,
-                            Date reservationDate
+                             Date reservationDate,
+                             String offerName
+
+
 
 ) {
 }

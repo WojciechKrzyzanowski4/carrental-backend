@@ -13,5 +13,5 @@ public interface ReservationService {
 
     ReservationEntity saveReservation(ReservationDTO reservationDTO);
 
-
+    void saveReservation(ReservationEntity reservationEntity);
 }

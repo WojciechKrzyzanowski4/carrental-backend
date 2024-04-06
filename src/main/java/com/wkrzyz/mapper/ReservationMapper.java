@@ -14,6 +14,7 @@ public interface ReservationMapper {
 
     @Mapping(target="id", source="id")
     @Mapping(target="reservationDate", source="reservationDate")
+    @Mapping(target="offerName", source="offer.name")
     ReservationDTO fromReservationEntityToReservationDTO(ReservationEntity reservationEntity);
 
     @Mapping(target="id", source="id")

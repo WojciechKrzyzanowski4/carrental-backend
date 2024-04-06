@@ -48,12 +48,16 @@ public class ReservationController {
         }
         try{
             ReservationEntity reservationEntity = reservationService.saveReservation(reservationDTO);
+            System.out.println(reservationEntity.getId());
             OfferEntity offerEntity = offerService.findById(id);
             UserEntity userEntity = userService.findUserByEmail(email).get();
             offerEntity.getReservations().add(reservationEntity);
             userEntity.getReservations().add(reservationEntity);
-            offerService.saveOfferEntity(offerEntity);
+            reservationEntity.setUser(userEntity);
+            reservationEntity.setOffer(offerEntity);
             userService.saveUser(userEntity);
+            offerService.saveOfferEntity(offerEntity);
+            reservationService.saveReservation(reservationEntity);
         }catch(NoSuchElementException e){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
