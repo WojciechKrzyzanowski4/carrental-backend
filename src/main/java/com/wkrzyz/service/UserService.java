@@ -1,6 +1,7 @@
 package com.wkrzyz.service;
 
 import com.wkrzyz.dto.OfferDTO;
+import com.wkrzyz.dto.ReservationDTO;
 import com.wkrzyz.dto.UserDTO;
 import com.wkrzyz.entity.UserEntity;
 
@@ -17,5 +18,7 @@ public interface UserService {
 
     List<OfferDTO> findTheUserLikedOffers(String email);
 
-    void updateUser(UserDTO userDTO);
+    List<ReservationDTO> findTheUserReservations(String email);
+
+
 }

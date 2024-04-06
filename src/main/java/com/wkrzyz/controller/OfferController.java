@@ -1,6 +1,7 @@
 package com.wkrzyz.controller;
 
 import com.wkrzyz.dto.OfferDTO;
+import com.wkrzyz.dto.ReservationDTO;
 import com.wkrzyz.entity.OfferEntity;
 import com.wkrzyz.entity.UserEntity;
 import com.wkrzyz.exception.NotFoundException;
@@ -139,5 +140,10 @@ public class OfferController {
         }
         return ResponseEntity.status(HttpStatus.CREATED).build();
 
+    }
+
+    @GetMapping("/{id}/reservations")
+    public List<ReservationDTO> getReservationsForOffer(@PathVariable Long id){
+        return offerService.findTheOfferReservations(id);
     }
 }

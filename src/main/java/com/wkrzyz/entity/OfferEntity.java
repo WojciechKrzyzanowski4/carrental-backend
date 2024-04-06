@@ -27,4 +27,7 @@ public class OfferEntity {
     @ManyToMany(mappedBy = "likedOffers")
     private List<UserEntity> likedByUsers;
 
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    private List<ReservationEntity> reservations;
+
 }

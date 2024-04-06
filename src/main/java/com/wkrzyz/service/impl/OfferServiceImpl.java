@@ -1,11 +1,14 @@
 package com.wkrzyz.service.impl;
 
 import com.wkrzyz.dto.OfferDTO;
+import com.wkrzyz.dto.ReservationDTO;
 import com.wkrzyz.entity.CarEntity;
 import com.wkrzyz.entity.OfferEntity;
+import com.wkrzyz.entity.ReservationEntity;
 import com.wkrzyz.entity.UserEntity;
 import com.wkrzyz.exception.NotFoundException;
 import com.wkrzyz.mapper.OfferMapper;
+import com.wkrzyz.mapper.ReservationMapper;
 import com.wkrzyz.repository.CarEntityRepository;
 import com.wkrzyz.repository.OfferEntityRepository;
 import com.wkrzyz.repository.UserEntityRepository;
@@ -13,6 +16,7 @@ import com.wkrzyz.service.OfferService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -24,6 +28,7 @@ public class OfferServiceImpl implements OfferService {
     private final CarEntityRepository carEntityRepository;
     private final UserEntityRepository userEntityRepository;
     private final OfferMapper offerMapper;
+    private final ReservationMapper reservationMapper;
 
     @Override
     public void saveOffer(OfferDTO offerDTO) {
@@ -83,5 +88,15 @@ public class OfferServiceImpl implements OfferService {
     public OfferEntity findById(Long id) {
         return offerEntityRepository.findById(id)
                 .orElseThrow(()->new NotFoundException("Offer not Found by id = " + id));
+    }
+
+
+    @Override
+    public List<ReservationDTO> findTheOfferReservations(Long id) {
+        List<ReservationDTO> list = new ArrayList<>();
+        OfferEntity offerEntity = offerEntityRepository.findById(id)
+                .orElseThrow(()->new NotFoundException("error"));
+        list = offerEntity.getReservations().stream().map(reservationMapper::fromReservationEntityToReservationDTO).toList();
+        return list;
     }
 }

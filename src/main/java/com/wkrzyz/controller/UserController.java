@@ -2,6 +2,7 @@ package com.wkrzyz.controller;
 
 import com.wkrzyz.dto.CarDTO;
 import com.wkrzyz.dto.OfferDTO;
+import com.wkrzyz.dto.ReservationDTO;
 import com.wkrzyz.dto.UserDTO;
 import com.wkrzyz.entity.OfferEntity;
 import com.wkrzyz.entity.UserEntity;
@@ -50,7 +51,7 @@ public class UserController {
     }
 
     /**
-     * This method returns all the offer the currently logged-in user likes
+     * This method returns all the offers the currently logged-in user likes
      * */
     @GetMapping("liked-offers")
     public List<OfferDTO> getLikedOffersForCurrentlyLoggedInUser(){
@@ -60,14 +61,16 @@ public class UserController {
         }
         return userService.findTheUserLikedOffers(email);
     }
-
-    @PostMapping("/edit")
-    public ResponseEntity<Void> editUser(@RequestBody UserDTO userDTO){
-        try{
-            userService.updateUser(userDTO);
-        }catch(NotFoundException e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    /**
+     * This method returns all the reservations the currently logged-in user has
+     * */
+    @GetMapping("reservations")
+    public List<ReservationDTO> getReservationsForCurrentlyLoggedInUser(){
+        String email = oAuth2Service.getEmailFromOAuth2Authentication();
+        if(email.isEmpty()){
+            throw new NotFoundException("authentication failed");
         }
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return userService.findTheUserReservations(email);
     }
+
 }
