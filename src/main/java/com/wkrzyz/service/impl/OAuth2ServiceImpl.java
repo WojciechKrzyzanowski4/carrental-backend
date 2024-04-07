@@ -16,8 +16,7 @@ public class OAuth2ServiceImpl implements OAuth2Service {
         SecurityContext securityContextHolder = SecurityContextHolder.getContext();
         Authentication authentication = securityContextHolder.getAuthentication();
 
-        if (authentication instanceof OAuth2AuthenticationToken) {
-            OAuth2AuthenticationToken oAuth2AuthenticationToken = (OAuth2AuthenticationToken) authentication;
+        if (authentication instanceof OAuth2AuthenticationToken oAuth2AuthenticationToken) {
 
             if ("github".equals(oAuth2AuthenticationToken.getAuthorizedClientRegistrationId())) {
                 return oAuth2AuthenticationToken.getPrincipal().getAttributes().get("login").toString();

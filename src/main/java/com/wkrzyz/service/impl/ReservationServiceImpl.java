@@ -14,6 +14,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+
 @Service
 @RequiredArgsConstructor
 public class ReservationServiceImpl implements ReservationService {
@@ -41,5 +43,10 @@ public class ReservationServiceImpl implements ReservationService {
     @Override
     public void saveReservation(ReservationEntity reservationEntity) {
         reservationEntityRepository.save(reservationEntity);
+    }
+
+    @Override
+    public ReservationEntity findById(Long id) {
+        return reservationEntityRepository.findById(id).orElseThrow(()-> new NotFoundException("element not found"));
     }
 }

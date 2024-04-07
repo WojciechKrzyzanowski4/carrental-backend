@@ -14,4 +14,6 @@ public interface ReservationService {
     ReservationEntity saveReservation(ReservationDTO reservationDTO);
 
     void saveReservation(ReservationEntity reservationEntity);
+
+    ReservationEntity findById(Long id);
 }

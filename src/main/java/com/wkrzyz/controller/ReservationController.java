@@ -4,6 +4,7 @@ import com.wkrzyz.dto.ReservationDTO;
 import com.wkrzyz.entity.OfferEntity;
 import com.wkrzyz.entity.ReservationEntity;
 import com.wkrzyz.entity.UserEntity;
+import com.wkrzyz.exception.NotFoundException;
 import com.wkrzyz.service.OAuth2Service;
 import com.wkrzyz.service.OfferService;
 import com.wkrzyz.service.ReservationService;
@@ -41,14 +42,12 @@ public class ReservationController {
 
     @PostMapping("create/{id}")
     ResponseEntity<Void> create(@PathVariable Long id, @RequestBody ReservationDTO reservationDTO){
-        System.out.println(reservationDTO.reservationDate());
         String email = oAuth2Service.getEmailFromOAuth2Authentication();
         if(email.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
         try{
             ReservationEntity reservationEntity = reservationService.saveReservation(reservationDTO);
-            System.out.println(reservationEntity.getId());
             OfferEntity offerEntity = offerService.findById(id);
             UserEntity userEntity = userService.findUserByEmail(email).get();
             offerEntity.getReservations().add(reservationEntity);
@@ -61,6 +60,24 @@ public class ReservationController {
         }catch(NoSuchElementException e){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @GetMapping("{id}/invoice")
+    ResponseEntity<Void> redirectInvoice(@PathVariable Long id){
+        try{
+            ReservationEntity reservationEntity = reservationService.findById(id);
+            System.out.println(reservationEntity.getId());
+            System.out.println(reservationEntity.getReservationDate());
+
+            /*
+            here something can be done to the invoice I don't really know how invoices work
+            so if you have some idea go ahead ;)
+            */
+        }catch (NotFoundException e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
