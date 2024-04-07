@@ -34,12 +34,17 @@ public class ReservationController {
     private final OAuth2Service oAuth2Service;
 
     private final OfferService offerService;
-
+    /**
+     * This method returns all the reservations in the system
+     */
     @GetMapping
     List<ReservationDTO> findAll(){
         return reservationService.findAll();
     }
-
+    /**
+     * This method creates a reservation for an offer
+     * @param id the id of the offer passed in as a path variable
+     */
     @PostMapping("create/{id}")
     ResponseEntity<Void> create(@PathVariable Long id, @RequestBody ReservationDTO reservationDTO){
         String email = oAuth2Service.getEmailFromOAuth2Authentication();
@@ -62,7 +67,12 @@ public class ReservationController {
         }
         return ResponseEntity.status(HttpStatus.OK).build();
     }
-
+    /**
+     * This method sends an email with the invoice for a reservation
+     * to the administrator of the system ? I am not sure if this is how
+     * we want to handle this, but it is the best that I have for now
+     * @param id the id of the offer passed in as a path variable
+     */
     @GetMapping("{id}/invoice")
     ResponseEntity<Void> redirectInvoice(@PathVariable Long id){
         try{
@@ -71,8 +81,7 @@ public class ReservationController {
             System.out.println(reservationEntity.getReservationDate());
 
             /*
-            here something can be done to the invoice I don't really know how invoices work
-            so if you have some idea go ahead ;)
+            send the email to the public mailbox of the system
             */
         }catch (NotFoundException e){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();

@@ -120,7 +120,11 @@ public class OfferController {
         }
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
-
+    /**
+     * This method gets the currently logged-in user and removes the offer of choice from the liked offers
+     * while also removing the users from the users who like this particular offer
+     * @param id the id of the offer passed in as a path variable
+     */
     @GetMapping("{id}/dislike")
     public ResponseEntity<Void> dislikeOffer(@PathVariable Long id){
 
@@ -141,7 +145,10 @@ public class OfferController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
 
     }
-
+    /**
+     * This method returns all the reservations regarding a particular offer
+     * @param id the id of the offer passed in as a path variable
+     */
     @GetMapping("/{id}/reservations")
     public List<ReservationDTO> getReservationsForOffer(@PathVariable Long id){
         return offerService.findTheOfferReservations(id);
