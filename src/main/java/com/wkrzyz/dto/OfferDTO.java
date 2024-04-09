@@ -1,8 +1,7 @@
 package com.wkrzyz.dto;
 
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+
 
 public record OfferDTO(Long id,
                        @NotEmpty(message="offer should have a name") String name,

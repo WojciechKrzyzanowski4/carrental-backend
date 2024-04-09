@@ -1,10 +1,8 @@
 package com.wkrzyz.service.impl;
 
 import com.wkrzyz.dto.CarDTO;
-import com.wkrzyz.dto.OfferDTO;
 import com.wkrzyz.entity.BrandEntity;
 import com.wkrzyz.entity.CarEntity;
-import com.wkrzyz.entity.OfferEntity;
 import com.wkrzyz.exception.NotFoundException;
 import com.wkrzyz.mapper.CarMapper;
 import com.wkrzyz.repository.BrandEntityRepository;

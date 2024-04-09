@@ -1,30 +1,22 @@
 package com.wkrzyz.service.impl;
 
 import com.wkrzyz.dto.ReservationDTO;
-import com.wkrzyz.entity.OfferEntity;
 import com.wkrzyz.entity.ReservationEntity;
 import com.wkrzyz.exception.NotFoundException;
 import com.wkrzyz.mapper.ReservationMapper;
-import com.wkrzyz.repository.OfferEntityRepository;
 import com.wkrzyz.repository.ReservationEntityRepository;
-import com.wkrzyz.repository.UserEntityRepository;
 import com.wkrzyz.service.ReservationService;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.NoSuchElementException;
+
 
 @Service
 @RequiredArgsConstructor
 public class ReservationServiceImpl implements ReservationService {
 
     private final ReservationEntityRepository reservationEntityRepository;
-
-    private final OfferEntityRepository offerEntityRepository;
-
-    private final UserEntityRepository userEntityRepository;
 
     private final ReservationMapper reservationMapper;
     @Override

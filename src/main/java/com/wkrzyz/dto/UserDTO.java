@@ -1,6 +1,5 @@
 package com.wkrzyz.dto;
 
-import com.wkrzyz.entity.RegistrationSource;
 import jakarta.validation.constraints.NotEmpty;
 
 public record UserDTO(Long id,

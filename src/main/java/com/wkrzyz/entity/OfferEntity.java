@@ -2,7 +2,6 @@ package com.wkrzyz.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import org.apache.catalina.User;
 
 import java.util.List;
 

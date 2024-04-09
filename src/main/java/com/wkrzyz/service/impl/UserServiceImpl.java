@@ -3,7 +3,6 @@ package com.wkrzyz.service.impl;
 import com.wkrzyz.dto.OfferDTO;
 import com.wkrzyz.dto.ReservationDTO;
 import com.wkrzyz.dto.UserDTO;
-import com.wkrzyz.entity.ReservationEntity;
 import com.wkrzyz.entity.UserEntity;
 import com.wkrzyz.exception.NotFoundException;
 import com.wkrzyz.mapper.OfferMapper;

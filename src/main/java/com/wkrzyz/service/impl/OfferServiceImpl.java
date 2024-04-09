@@ -4,7 +4,6 @@ import com.wkrzyz.dto.OfferDTO;
 import com.wkrzyz.dto.ReservationDTO;
 import com.wkrzyz.entity.CarEntity;
 import com.wkrzyz.entity.OfferEntity;
-import com.wkrzyz.entity.ReservationEntity;
 import com.wkrzyz.entity.UserEntity;
 import com.wkrzyz.exception.NotFoundException;
 import com.wkrzyz.mapper.OfferMapper;
