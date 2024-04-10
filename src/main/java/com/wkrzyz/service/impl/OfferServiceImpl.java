@@ -4,6 +4,7 @@ import com.wkrzyz.dto.OfferDTO;
 import com.wkrzyz.dto.ReservationDTO;
 import com.wkrzyz.entity.CarEntity;
 import com.wkrzyz.entity.OfferEntity;
+import com.wkrzyz.entity.ReservationEntity;
 import com.wkrzyz.entity.UserEntity;
 import com.wkrzyz.exception.NotFoundException;
 import com.wkrzyz.mapper.OfferMapper;
@@ -48,6 +49,10 @@ public class OfferServiceImpl implements OfferService {
         //we need to make sure to delete the reference created by the likes.
         if(offerEntityRepository.findById(id).isPresent()){
             OfferEntity offer = offerEntityRepository.findById(id).get();
+            List<ReservationEntity> reservationEntities = offer.getReservations();
+            if(!reservationEntities.isEmpty()){
+                throw new NotFoundException("there are reservations linked with this offer");
+            }
             List<UserEntity> userEntities = offer.getLikedByUsers();
             for(UserEntity u : userEntities){
                 u.getLikedOffers().remove(offer);

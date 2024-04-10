@@ -68,6 +68,7 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public void delete(Long id) {
+
         carEntityRepository.deleteById(id);
     }
 }
