@@ -27,6 +27,14 @@ public class UserController {
     private final OAuth2Service oAuth2Service;
 
     /**
+     * This method returns all the users in the database
+     * */
+    @GetMapping("/all")
+    public List<UserDTO> findAllUsers(){
+        return userService.findAll();
+    }
+
+    /**
      * This method return the currently logged-in user as a DTO object
      * */
     @GetMapping

@@ -39,6 +39,8 @@ dependencies {
 	annotationProcessor group: 'org.mapstruct', name: 'mapstruct', version: '1.5.5.Final'
 	annotationProcessor group: 'org.mapstruct', name: 'mapstruct-processor', version: '1.5.5.Final'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.security:spring-security-test'
+	testImplementation 'org.mockito:mockito-core:2.21.0'
 }
 
 tasks.named('test') {

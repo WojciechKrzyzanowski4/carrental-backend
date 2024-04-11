@@ -10,6 +10,7 @@ import java.util.Optional;
 
 public interface UserService {
 
+    List<UserDTO> findAll();
     Optional<UserEntity> findUserByEmail(String email);
 
     UserDTO findUserDTObyEmail(String email);

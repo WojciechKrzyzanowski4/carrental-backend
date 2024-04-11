@@ -30,6 +30,11 @@ public class UserServiceImpl implements UserService {
     private final ReservationMapper reservationMapper;
 
     @Override
+    public List<UserDTO> findAll() {
+        return userEntityRepository.findAll().stream().map(userMapper::fromUserEntityToUserDTO).toList();
+    }
+
+    @Override
     public Optional<UserEntity> findUserByEmail(String email) {
         return userEntityRepository.findByEmail(email);
     }
