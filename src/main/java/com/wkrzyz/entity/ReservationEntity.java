@@ -18,11 +18,11 @@ public class ReservationEntity {
     private Date reservationDate;
 
     @ManyToOne
-    @JoinColumn(name = "offer_id", referencedColumnName = "id")
+    @JoinColumn(name = "offer_id")
     private OfferEntity offer;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JoinColumn(name = "user_id")
     private UserEntity user;
 
 }

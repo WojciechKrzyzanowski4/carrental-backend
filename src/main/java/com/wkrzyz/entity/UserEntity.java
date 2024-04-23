@@ -39,6 +39,7 @@ public class UserEntity {
     private Set<OfferEntity> likedOffers;
 
     @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "user_id")
     private List<ReservationEntity> reservations;
 
 }
