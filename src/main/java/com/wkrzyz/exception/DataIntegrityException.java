@@ -1,13 +1,13 @@
 package com.wkrzyz.exception;
 
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class NotFoundException extends RuntimeException{
+public class DataIntegrityException extends RuntimeException{
     private final String message;
 
-    public String getMessage(){
+    public String getMessage() {
         return this.message;
     }
+
 }

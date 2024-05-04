@@ -52,11 +52,7 @@ public class CarController {
      * */
     @PutMapping ("/edit")
     public ResponseEntity<Void> edit(@Validated @RequestBody CarDTO carDTO){
-        try{
-            carService.put(carDTO);
-        }catch(NotFoundException e){
-            return ResponseEntity.status(HttpStatus.NOT_MODIFIED).build();
-        }
+        carService.put(carDTO);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
     /**
@@ -69,6 +65,7 @@ public class CarController {
         try{
             carService.delete(id);
         }catch(DataIntegrityViolationException e){
+            //this is probably the better behaviour because it is somewhat intended
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
         return ResponseEntity.status(HttpStatus.OK).build();

@@ -62,7 +62,7 @@ public class ReservationController {
             offerService.saveOfferEntity(offerEntity);
             reservationService.saveReservation(reservationEntity);
         }catch(NoSuchElementException e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            throw new NotFoundException("failed to create a reservation for the offer with id: " + id);
         }
         return ResponseEntity.status(HttpStatus.OK).build();
     }
@@ -74,18 +74,12 @@ public class ReservationController {
      */
     @GetMapping("{id}/invoice")
     ResponseEntity<Void> redirectInvoice(@PathVariable Long id){
-        try{
-            ReservationEntity reservationEntity = reservationService.findById(id);
-            System.out.println(reservationEntity.getId());
-            System.out.println(reservationEntity.getReservationDate());
-
-            /*
-            send the email to the public mailbox of the system
-            */
-        }catch (NotFoundException e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-
+        ReservationEntity reservationEntity = reservationService.findById(id);
+        System.out.println(reservationEntity.getId());
+        System.out.println(reservationEntity.getReservationDate());
+        /*
+        send the email to the public mailbox of the system
+        */
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 

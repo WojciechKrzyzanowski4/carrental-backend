@@ -1,6 +1,10 @@
 package com.wkrzyz.mapper;
+
+import com.wkrzyz.dto.RecordDTO;
 import com.wkrzyz.dto.ReservationDTO;
+import com.wkrzyz.entity.RecordEntity;
 import com.wkrzyz.entity.ReservationEntity;
+import com.wkrzyz.service.RecordService;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
@@ -11,19 +15,21 @@ import org.mapstruct.factory.Mappers;
         componentModel = MappingConstants.ComponentModel.SPRING,
         unmappedTargetPolicy = ReportingPolicy.IGNORE
 )
-public interface ReservationMapper {
+public interface RecordMapper {
 
     @Mapping(target="id", source="id")
-    @Mapping(target="reservationDate", source="reservationDate")
-    @Mapping(target="user", expression="java(userMapper.fromUserEntityToUserDTO(reservationEntity.getUser()))")
-    @Mapping(target="offer", expression="java(offerMapper.fromOfferEntityToOfferDTO(reservationEntity.getOffer()))")
-    ReservationDTO fromReservationEntityToReservationDTO(ReservationEntity reservationEntity);
+    @Mapping(target="recordDate", source="recordDate")
+    @Mapping(target="status",source="status")
+    @Mapping(target="user", expression="java(userMapper.fromUserEntityToUserDTO(recordEntity.getUser()))")
+    @Mapping(target="offer", expression="java(offerMapper.fromOfferEntityToOfferDTO(recordEntity.getOffer()))")
+    RecordDTO fromRecordEntityToRecordDTO(RecordEntity recordEntity);
 
     @Mapping(target="id", source="id")
-    @Mapping(target="reservationDate",source="reservationDate")
+    @Mapping(target="recordDate",source="recordDate")
+    @Mapping(target="status",source="status")
     @Mapping(target="offer",ignore = true)
     @Mapping(target="user",ignore = true)
-    ReservationEntity fromReservationDTOToReservationEntity(ReservationDTO reservationDTO);
+    RecordEntity fromRecordDTOToRecordEntity(RecordDTO recordDTO);
 
 
     UserMapper userMapper = Mappers.getMapper(UserMapper.class);

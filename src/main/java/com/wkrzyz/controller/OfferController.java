@@ -48,7 +48,7 @@ public class OfferController {
         try{
             offerService.saveOffer(offerDTO);
         }catch (NoSuchElementException e){
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            throw new NotFoundException("failed to create an offer");
         }
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
@@ -61,7 +61,7 @@ public class OfferController {
         try{
             offerService.delete(id);
         }catch (NotFoundException e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            throw new NotFoundException("failed to delete an offer with id: " + id);
         }
         return ResponseEntity.status(HttpStatus.OK).build();
     }
@@ -74,7 +74,7 @@ public class OfferController {
         try{
             offerService.put(offerDTO);
         }catch(NoSuchElementException e){
-            return ResponseEntity.status(HttpStatus.NOT_MODIFIED).build();
+            throw new NotFoundException("failed to edit the offer");
         }
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
@@ -112,7 +112,7 @@ public class OfferController {
             offerService.saveOfferEntity(currentOffer);
             userService.saveUser(currentUser);
         }catch(NoSuchElementException e){
-            return ResponseEntity.status(HttpStatus.I_AM_A_TEAPOT).build();
+            throw new NotFoundException("failed to like the offer with id: " + id);
         }
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
@@ -135,8 +135,8 @@ public class OfferController {
             currentOffer.getLikedByUsers().remove(currentUser);
             offerService.saveOfferEntity(currentOffer);
             userService.saveUser(currentUser);
-        }catch(NoSuchElementException e){
-            return ResponseEntity.status(HttpStatus.I_AM_A_TEAPOT).build();
+        }catch(NoSuchElementException e) {
+            throw new NotFoundException("failed to dislike the offer with id: " + id);
         }
         return ResponseEntity.status(HttpStatus.CREATED).build();
 

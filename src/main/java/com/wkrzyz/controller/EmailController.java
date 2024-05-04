@@ -19,9 +19,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/send")
 public class EmailController {
 
-
     private final EmailService emailService;
-
     /**
      * This works I fixed it, this shit hurt btw do not try to use yahoo for this, it made me heavily consider testing if I could fly
      * */

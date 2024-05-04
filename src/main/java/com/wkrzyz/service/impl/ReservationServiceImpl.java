@@ -28,7 +28,7 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     public ReservationEntity saveReservation(ReservationDTO reservationDTO) {
-        ReservationEntity reservationEntity = reservationMapper.fromReservationDTOTOReservationEntity(reservationDTO);
+        ReservationEntity reservationEntity = reservationMapper.fromReservationDTOToReservationEntity(reservationDTO);
         reservationEntityRepository.save(reservationEntity);
         return reservationEntity;
     }
