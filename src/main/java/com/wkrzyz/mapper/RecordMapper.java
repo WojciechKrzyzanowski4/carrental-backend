@@ -1,10 +1,7 @@
 package com.wkrzyz.mapper;
 
 import com.wkrzyz.dto.RecordDTO;
-import com.wkrzyz.dto.ReservationDTO;
 import com.wkrzyz.entity.RecordEntity;
-import com.wkrzyz.entity.ReservationEntity;
-import com.wkrzyz.service.RecordService;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;

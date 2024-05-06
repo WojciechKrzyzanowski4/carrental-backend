@@ -24,4 +24,15 @@ public class RecordServiceImpl implements RecordService {
                 .map(recordMapper::fromRecordEntityToRecordDTO)
                 .toList();
     }
+
+    @Override
+    public void saveRecord(RecordDTO recordDTO) {
+        RecordEntity recordEntity = recordMapper.fromRecordDTOToRecordEntity(recordDTO);
+        recordEntityRepository.save(recordEntity);
+    }
+
+    @Override
+    public void saveRecordEntity(RecordEntity recordEntity) {
+        recordEntityRepository.save(recordEntity);
+    }
 }

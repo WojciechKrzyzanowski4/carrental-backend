@@ -8,4 +8,7 @@ import java.util.List;
 public interface RecordService {
 
     List<RecordDTO> getAllRecords();
+
+    void saveRecord(RecordDTO recordDTO);
+    void saveRecordEntity(RecordEntity recordEntity);
 }
