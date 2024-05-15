@@ -92,6 +92,9 @@ public class OAuth2LoginSuccessHandler extends SavedRequestAwareAuthenticationSu
             Object nameObj = attributes.getOrDefault("name", "");
             Object emailObj = attributes.getOrDefault("email", "");
 
+            System.out.println(nameObj);
+            System.out.println(emailObj);
+
             if(nameObj==null || emailObj==null){
                 throw new RuntimeException("this is not a google account");
             }
