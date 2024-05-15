@@ -25,7 +25,7 @@ INSERT INTO record_table(status, record_date) VALUES (1, '2024-04-12');
 INSERT INTO record_table(status, record_date) VALUES (1, '2024-04-14');
 INSERT INTO record_table(status, record_date) VALUES (1, '2024-04-17');
 INSERT INTO record_table(status, record_date) VALUES (1, '2024-04-19');
---do not touch this is very important, if you also want to be an admin please insert yourself into the database
+#do not touch this is very important, if you also want to be an admin please insert yourself into the database
 INSERT INTO user_table(name, email, role, source) VALUES ('WojciechKrzyzanowski4', 'WojciechKrzyzanowski4', 'ROLE_ADMIN', 'GITHUB' );
 INSERT INTO user_table(name, email, role, source) VALUES ('Wojciech Krzyzanowski', 'spider.wojciech@gmail.com', 'ROLE_USER', 'GOOGLE' );
 INSERT INTO user_table(name, email, role, source) VALUES ('Magdalena Baron', 'magdalenabaron03@gmail.com', 'ROLE_ADMIN', 'GOOGLE' );
