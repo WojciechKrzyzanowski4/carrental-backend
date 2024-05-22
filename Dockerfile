@@ -17,7 +17,7 @@ EXPOSE 8080
 COPY --from=build /app/build/libs/*.jar /app/
 
 # Copy the application-local.properties file into the container
-COPY src/main/resources/application-docker.properties /conf//ig/application.properties
+COPY src/main/resources/application-docker.properties /config/application.properties
 
 # Set the entrypoint and specify the location of the properties file
 ENTRYPOINT ["java", "-Dspring.config.location=file:/config/application.properties", "-jar", "/app/car-rental-app-0.0.1-SNAPSHOT.jar"]
