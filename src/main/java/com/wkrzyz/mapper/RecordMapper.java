@@ -16,14 +16,14 @@ public interface RecordMapper {
 
     @Mapping(target="id", source="id")
     @Mapping(target="recordDate", source="recordDate")
-    @Mapping(target="status",source="status")
+    @Mapping(target="status",expression="java(recordEntity.getStatus().name())")
     @Mapping(target="user", expression="java(userMapper.fromUserEntityToUserDTO(recordEntity.getUser()))")
     @Mapping(target="offer", expression="java(offerMapper.fromOfferEntityToOfferDTO(recordEntity.getOffer()))")
     RecordDTO fromRecordEntityToRecordDTO(RecordEntity recordEntity);
 
     @Mapping(target="id", source="id")
     @Mapping(target="recordDate",source="recordDate")
-    @Mapping(target="status",source="status")
+    @Mapping(target="status",ignore = true)
     @Mapping(target="offer",ignore = true)
     @Mapping(target="user",ignore = true)
     RecordEntity fromRecordDTOToRecordEntity(RecordDTO recordDTO);

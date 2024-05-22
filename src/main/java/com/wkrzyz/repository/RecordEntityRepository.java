@@ -4,8 +4,13 @@ import com.wkrzyz.entity.RecordEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface RecordEntityRepository extends JpaRepository<RecordEntity, Long> {
-    // this is the place for the broken and lost and there is no code to be found here
+
+    List<RecordEntity> findAllByUser_id(Long id);
+
+    List<RecordEntity> findAllByOffer_id(Long id);
 
 }

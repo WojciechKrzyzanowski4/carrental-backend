@@ -41,4 +41,9 @@ public class ReservationServiceImpl implements ReservationService {
     public ReservationEntity findById(Long id) {
         return reservationEntityRepository.findById(id).orElseThrow(()-> new NotFoundException("element not found"));
     }
+
+    @Override
+    public void deleteReservation(ReservationEntity reservationEntity) {
+        reservationEntityRepository.delete(reservationEntity);
+    }
 }

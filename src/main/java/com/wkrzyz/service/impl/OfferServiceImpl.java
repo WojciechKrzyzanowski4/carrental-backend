@@ -12,6 +12,7 @@ import com.wkrzyz.mapper.ReservationMapper;
 import com.wkrzyz.repository.CarEntityRepository;
 import com.wkrzyz.repository.OfferEntityRepository;
 import com.wkrzyz.repository.UserEntityRepository;
+import com.wkrzyz.service.EmailService;
 import com.wkrzyz.service.OfferService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -29,6 +31,7 @@ public class OfferServiceImpl implements OfferService {
     private final UserEntityRepository userEntityRepository;
     private final OfferMapper offerMapper;
     private final ReservationMapper reservationMapper;
+    private final EmailService emailService;
 
     @Override
     public void saveOffer(OfferDTO offerDTO) {
@@ -73,7 +76,12 @@ public class OfferServiceImpl implements OfferService {
         OfferEntity offerEntity = offerMapper.fromOfferDTOToOfferEntity(offerDTO);
         CarEntity carEntity = carEntityRepository.findById(carId).orElseThrow(NoSuchElementException::new);
         offerEntity.setCar(carEntity);
-        if(offerEntityRepository.findById(offerEntity.getId()).isPresent()){
+        Optional<OfferEntity> oldOfferEntity = offerEntityRepository.findById(offerEntity.getId());
+        if(oldOfferEntity.isPresent()){
+            // we have a discount ladies and gentlemen
+            if(offerEntity.getPrice()<oldOfferEntity.get().getPrice()){
+                emailService.notifyUsersAboutDiscount(offerEntity);
+            }
             offerEntityRepository.save(offerEntity);
         }else{
             throw new NoSuchElementException("the object was already removed");

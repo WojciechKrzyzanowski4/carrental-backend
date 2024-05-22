@@ -13,11 +13,10 @@ public class RecordEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name="status")
-    private Integer status;
 
-//    @Column(name="payment_date")
-//    private Date paymentDate;
+    @Column(name="status")
+    @Enumerated(EnumType.STRING)
+    private ReservationStatus status;
 
     @Column(name="record_date")
     private Date recordDate;

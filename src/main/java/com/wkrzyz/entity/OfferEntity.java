@@ -30,7 +30,7 @@ public class OfferEntity {
     @JoinColumn(name = "offer_id")
     private List<ReservationEntity> reservations;
 
-    @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "offer_id")
     private List<RecordEntity> records;
 

@@ -42,7 +42,7 @@ public class UserEntity {
     @JoinColumn(name = "user_id")
     private List<ReservationEntity> reservations;
 
-    @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "user_id")
     private List<RecordEntity> records;
 
