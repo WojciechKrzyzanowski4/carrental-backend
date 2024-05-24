@@ -1,9 +1,13 @@
 package com.wkrzyz.controller;
 
+import com.wkrzyz.dto.ContactDTO;
+import com.wkrzyz.dto.FeedbackDTO;
+import com.wkrzyz.exception.NotFoundException;
 import com.wkrzyz.service.EmailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -33,5 +37,27 @@ public class EmailController {
         emailService.sendSimpleMessage("spider.wojciech@gmail.com", "Test email", "Hello, World!");
         return ResponseEntity.status(HttpStatus.OK).build();
     }
+
+    @PostMapping("/email")
+    public ResponseEntity<Void> respondToEmail( @RequestBody ContactDTO contactDTO ){
+        try{
+            emailService.sendContact(contactDTO);
+        }catch (NotFoundException e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping("/feedback")
+    public ResponseEntity<Void> respondToFeedback( @RequestBody FeedbackDTO feedbackDTO ){
+        try{
+            emailService.sendFeedback(feedbackDTO);
+        }catch (NotFoundException e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 
 }
