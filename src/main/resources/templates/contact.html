@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Contact Email</title>
+</head>
+<body>
+<h1>Feedback</h1>
+<p>We received the following feedback from: <span th:text="${email}"></span></p>
+<h3>This is the message the user send</h3>
+<p th:text="${message}"></p>
+<h3>This email was generated automatically</h3>
+</body>
+</html>

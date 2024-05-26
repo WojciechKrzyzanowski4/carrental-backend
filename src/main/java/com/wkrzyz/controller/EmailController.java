@@ -4,6 +4,7 @@ import com.wkrzyz.dto.ContactDTO;
 import com.wkrzyz.dto.FeedbackDTO;
 import com.wkrzyz.exception.NotFoundException;
 import com.wkrzyz.service.EmailService;
+import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,7 +43,7 @@ public class EmailController {
     public ResponseEntity<Void> respondToEmail( @RequestBody ContactDTO contactDTO ){
         try{
             emailService.sendContact(contactDTO);
-        }catch (NotFoundException e){
+        }catch (NotFoundException | MessagingException e){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(HttpStatus.OK);
@@ -52,7 +53,7 @@ public class EmailController {
     public ResponseEntity<Void> respondToFeedback( @RequestBody FeedbackDTO feedbackDTO ){
         try{
             emailService.sendFeedback(feedbackDTO);
-        }catch (NotFoundException e){
+        }catch (NotFoundException | MessagingException e){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 

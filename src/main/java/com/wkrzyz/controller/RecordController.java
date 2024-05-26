@@ -1,7 +1,6 @@
 package com.wkrzyz.controller;
 
 import com.wkrzyz.dto.RecordDTO;
-import com.wkrzyz.entity.RecordEntity;
 import com.wkrzyz.entity.ReservationEntity;
 import com.wkrzyz.entity.ReservationStatus;
 import com.wkrzyz.service.RecordService;
@@ -56,7 +55,5 @@ public class RecordController {
         recordService.bookRecord(reservation, reservationStatus);
         return new ResponseEntity<>(HttpStatusCode.valueOf(200));
     }
-
-
 
 }

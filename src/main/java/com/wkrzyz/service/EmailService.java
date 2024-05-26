@@ -4,6 +4,8 @@ import com.wkrzyz.dto.ContactDTO;
 import com.wkrzyz.dto.FeedbackDTO;
 import com.wkrzyz.entity.OfferEntity;
 import com.wkrzyz.exception.NotFoundException;
+import jakarta.mail.MessagingException;
+import org.springframework.web.client.HttpClientErrorException;
 
 
 public interface EmailService {
@@ -12,9 +14,9 @@ public interface EmailService {
 
     void notifyUsersAboutDiscount(OfferEntity offerEntity);
 
-    void sendFeedback(FeedbackDTO feedbackDTO) throws NotFoundException;
+    void sendFeedback(FeedbackDTO feedbackDTO) throws NotFoundException, MessagingException;
 
-    void sendContact(ContactDTO contactDTO) throws NotFoundException;
+    void sendContact(ContactDTO contactDTO) throws NotFoundException, MessagingException;
 
-
+    void sendConfirmation(String email) throws NotFoundException, MessagingException;
 }
