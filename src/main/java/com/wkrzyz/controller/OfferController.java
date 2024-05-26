@@ -79,21 +79,6 @@ public class OfferController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
     /**
-     * This method finds all the users who like a particular offer
-     * @param id the id of the offer passed in as a path variable
-     * */
-    @GetMapping("/likes/{id}")
-    public ResponseEntity<Void> seeWhoLikesIt(@PathVariable Long id){
-        List<UserEntity> users = offerService.findById(id).getLikedByUsers();
-        for(UserEntity u : users){
-            System.out.println(u.getEmail());
-
-            //we send the email!!
-
-        }
-        return ResponseEntity.status(HttpStatus.OK).build();
-    }
-    /**
      * This method gets the currently logged-in user and adds the offer of choice to the liked offers
      * while also adding the user to the users who like this particular offer
      * @param id the id of the offer passed in as a path variable
