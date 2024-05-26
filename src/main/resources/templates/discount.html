@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Discount</title>
 </head>
 <body>
-
+<h1>Discount</h1>
+<p>The offer named <span th:text="${offer}"></span> was discounted.</p>
+<h3>This is an offer you have liked, and it is about </h3>
+<h3 th:text="${car}"></h3>
+<h3>This email was generated automatically</h3>
 </body>
 </html>

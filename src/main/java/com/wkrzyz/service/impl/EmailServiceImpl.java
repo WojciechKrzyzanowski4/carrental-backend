@@ -46,31 +46,30 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
-    public void notifyUsersAboutDiscount(OfferEntity offerEntity) {
-        List<UserEntity> recepients = offerEntity.getLikedByUsers();
-        StringBuilder text = new StringBuilder();
+    public void notifyUsersAboutDiscount(OfferEntity offerEntity) throws NotFoundException, MessagingException{
+        List<UserEntity> recipients = offerEntity.getLikedByUsers();
+        StringBuilder carName = new StringBuilder();
         CarEntity car = offerEntity.getCar();
-        text.append("We are happy to inform, that the offer about")
-            .append(car.getBrand())
+        carName.append(car.getBrand())
             .append(" ")
             .append(car.getModel())
             .append(" ")
-            .append(car.getYearOfManufacture())
-            .append(" has been discounted");
+            .append(car.getYearOfManufacture());
 
-        for(UserEntity user : recepients){
+        for(UserEntity user : recipients){
             if(user.getEmail().matches(emailMatcher)){
-                // we found a user with a valid email,
-                // this is important because of GitHub source
-
-                //change simple mail message
-                //https://stackoverflow.com/questions/5068827/how-do-i-send-an-html-email
-                //https://mailtrap.io/blog/java-send-html-email/
-                SimpleMailMessage message = new SimpleMailMessage();
-                message.setTo(user.getEmail());
-                message.setSubject(subject);
-                message.setText(text.toString());
+                MimeMessage message = emailSender.createMimeMessage();
+                MimeMessageHelper helper = new MimeMessageHelper(message, true);
+                helper.setTo(subject);
+                helper.setSubject("Your Feedback");
+                Context context = new Context();
+                context.setVariable("offer", offerEntity.getName());
+                context.setVariable("car", carName.toString());
+                String htmlContent = templateEngine.process("discount", context);
+                helper.setText(htmlContent, true);
+                System.out.println("sending message");
                 emailSender.send(message);
+
             }
         }
     }

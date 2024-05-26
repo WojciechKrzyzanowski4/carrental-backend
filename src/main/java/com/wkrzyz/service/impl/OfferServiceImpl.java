@@ -14,6 +14,7 @@ import com.wkrzyz.repository.OfferEntityRepository;
 import com.wkrzyz.repository.UserEntityRepository;
 import com.wkrzyz.service.EmailService;
 import com.wkrzyz.service.OfferService;
+import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -78,9 +79,15 @@ public class OfferServiceImpl implements OfferService {
         offerEntity.setCar(carEntity);
         Optional<OfferEntity> oldOfferEntity = offerEntityRepository.findById(offerEntity.getId());
         if(oldOfferEntity.isPresent()){
-            // we have a discount ladies and gentlemen
+            offerEntity.setLikedByUsers(oldOfferEntity.get().getLikedByUsers());
+            offerEntity.setRecords(oldOfferEntity.get().getRecords());
+            offerEntity.setReservations(oldOfferEntity.get().getReservations());
             if(offerEntity.getPrice()<oldOfferEntity.get().getPrice()){
-                emailService.notifyUsersAboutDiscount(offerEntity);
+                try {
+                    emailService.notifyUsersAboutDiscount(offerEntity);
+                }catch (NotFoundException | MessagingException ignored){
+
+                }
             }
             offerEntityRepository.save(offerEntity);
         }else{

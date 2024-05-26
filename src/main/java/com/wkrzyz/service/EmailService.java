@@ -12,7 +12,7 @@ public interface EmailService {
 
     void sendSimpleMessage(String to, String subject, String text);
 
-    void notifyUsersAboutDiscount(OfferEntity offerEntity);
+    void notifyUsersAboutDiscount(OfferEntity offerEntity) throws NotFoundException, MessagingException;
 
     void sendFeedback(FeedbackDTO feedbackDTO) throws NotFoundException, MessagingException;
 
